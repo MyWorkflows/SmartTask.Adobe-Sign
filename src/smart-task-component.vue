@@ -1,12 +1,40 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import { VueFlow, Position } from '@braks/vue-flow';
 
+export default defineComponent({
 
-export default /*#__PURE__*/ defineComponent({
+  components:{
+    VueFlow
+  },
   name: "SmartTaskComponent", // vue component name
   props: ['componentState', 'componentStatus'],
   data() {
-    return { model: {} };
+    return { model: {}, 
+    elements:[
+  {
+    id: '1',
+    data: {
+      label: 'node 1',
+    },
+    position: { x: 100, y: 100 },
+    targetPosition: Position.Right
+  },
+  {
+    id: '2',
+    data: {
+      label: 'node 2',
+    },
+    position: { x: 100, y: 200 },
+    sourcePosition: Position.Left
+  },
+  {
+    id: 'e1-2',
+    label: 'default edge',
+    target: '2',
+    source: '1',
+  },
+]};
   },
   computed: {},
   methods: {
@@ -24,16 +52,5 @@ export default /*#__PURE__*/ defineComponent({
 </script>
 
 <template>
-  <form>
-    <div class="my-5">
-      <button
-        type="button"
-        @click="submitForm"
-        class="btn btn-sm btn-primary"
-      >
-       Mark as in Progress
-      </button>
-    </div>
-  </form>
+  <VueFlow :elements="elements"></VueFlow>
 </template>
-
